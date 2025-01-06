@@ -1,0 +1,230 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+tags:
+- name: Questions
+  description: Operations related to questions
+paths:
+  /questions:
+    get:
+      tags:
+      - Questions
+      summary: Get all questions
+      description: Returns a paginated list of all questions
+      operationId: getAllQuestions
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+        example: 0
+      - name: size
+        in: query
+        description: Page size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+        example: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageQuestion"
+    post:
+      tags:
+      - Questions
+      summary: Create a new question
+      description: Creates a new question and returns the created object
+      operationId: createQuestion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Question"
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Question"
+  /auth/user:
+    get:
+      tags:
+      - auth-controller
+      operationId: getUserInfo
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/User"
+components:
+  schemas:
+    ColumnData:
+      type: object
+      properties:
+        columnName:
+          type: string
+        value:
+          type: string
+    Question:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        tables:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/TableEntity"
+        output:
+          $ref: "#/components/schemas/TableEntity"
+        expectedQuery:
+          type: string
+        difficulty:
+          type: string
+          enum:
+          - EASY
+          - MEDIUM
+          - HARD
+        category:
+          type: string
+          enum:
+          - AGGREGATE
+          - JOINS
+          - SUBQUERIES
+          - FUNCTIONS
+          - INDEXING
+        tags:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+        hint:
+          type: string
+        createdBy:
+          type: string
+        updatedBy:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      description: Question to create
+    RowEntity:
+      type: object
+      properties:
+        columns:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/ColumnData"
+    TableEntity:
+      type: object
+      properties:
+        tableName:
+          type: string
+        rows:
+          uniqueItems: true
+          type: array
+          items:
+            $ref: "#/components/schemas/RowEntity"
+    PageQuestion:
+      type: object
+      properties:
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+        first:
+          type: boolean
+        last:
+          type: boolean
+        size:
+          type: integer
+          format: int32
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/Question"
+        number:
+          type: integer
+          format: int32
+        sort:
+          $ref: "#/components/schemas/SortObject"
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        empty:
+          type: boolean
+    PageableObject:
+      type: object
+      properties:
+        offset:
+          type: integer
+          format: int64
+        sort:
+          $ref: "#/components/schemas/SortObject"
+        paged:
+          type: boolean
+        pageNumber:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        unpaged:
+          type: boolean
+    SortObject:
+      type: object
+      properties:
+        empty:
+          type: boolean
+        unsorted:
+          type: boolean
+        sorted:
+          type: boolean
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          enum:
+          - USER
+          - ADMIN
+        source:
+          type: string
+          enum:
+          - GOOGLE
+          - GITHUB

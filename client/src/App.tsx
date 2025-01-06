@@ -1,35 +1,54 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import "./App.css";
+import Login from "./Login";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { useGetUserInfo } from "./api";
+import ProblemsPage from "./pages/ProblemsPage";
+import EditorPage from "./pages/EditorPage";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { data, isLoading, isError } = useGetUserInfo();
+
+  if (isError) {
+    console.log("not logged in");
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  // Determine if the user is logged in
+  const isLoggedIn = Boolean(data);
 
   return (
-    <>
+    <BrowserRouter>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <GoogleOAuthProvider clientId="182239427342-8l5ar58d1vstvtudn3q0spmp6dlhrji1.apps.googleusercontent.com">
+          <Routes>
+            {/* Protect the Problems route */}
+            <Route
+              path="/problems"
+              element={isLoggedIn ? <ProblemsPage /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/problems/:questionID"
+              element={isLoggedIn ? <EditorPage /> : <Navigate to="/login" />}
+            />
+            {/* Login route */}
+            <Route
+              path="/login"
+              element={isLoggedIn ? <Navigate to="/problems" /> : <Login />}
+            />
+            {/* Redirect any unknown route to Login */}
+            <Route
+              path="*"
+              element={<Navigate to={isLoggedIn ? "/problems" : "/login"} />}
+            />
+          </Routes>
+        </GoogleOAuthProvider>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
