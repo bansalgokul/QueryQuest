@@ -1,90 +1,67 @@
-# Java and Spring Boot
-*.class
-*.log
-*.war
-*.ear
-*.jar
+# Spring Boot (server folder)
+server/target/
+server/out/
+server/build/
+server/.mvn/
+server/.gradle/
+/server/logs/
+server/*.log
+server/*.pid
+server/*.gz
+
+# Ignore application properties (if sensitive data is included)
+server/src/main/resources/application.properties
+server/src/main/resources/application.yml
+server/src/main/resources/config/
 
 # Temporary files
-*.tmp
-*.bak
-*.swp
-*.swo
+server/*.tmp
+server/*.bak
+server/*.swp
+server/*.swo
 
 # IDE files
-/.idea/
-/*.iml
-*.ipr
-*.iws
-
-# Build and dependency directories
-/target/
-/out/
-/build/
-/.mvn/
-/.m2/
-
-# Gradle-specific files
-.gradle/
-/build/
-/!gradle-wrapper.jar
-.gradle/gradle-app.setting
-
-# Logs
-logs/
-*.log
-*.pid
-*.gz
-
-# Spring Boot properties
-/application.properties
-/application.yml
-
-# Spring Boot configuration profiles
-/src/main/resources/config/
+server/.idea/
+server/*.iml
 
 # OS-specific files
-.DS_Store
-Thumbs.db
-Desktop.ini
+server/.DS_Store
+server/Thumbs.db
+server/Desktop.ini
 
-# Node.js and React
-/node_modules/
-/build/
-/dist/
-/coverage/
-/.env
-.env.local
-.env.development
-.env.test
-.env.production
+# Node.js and React (client folder)
+client/node_modules/
+client/build/
+client/dist/
+client/coverage/
+client/.env
+client/.env.local
+client/.env.development
+client/.env.test
+client/.env.production
 
 # npm and Yarn lockfiles
-yarn.lock
-package-lock.json
+client/yarn.lock
+client/package-lock.json
 
 # ESLint and Prettier
-.eslintcache
-.prettierignore
-.prettierrc
+client/.eslintcache
+client/.prettierignore
+client/.prettierrc
 
 # VS Code and other IDE settings
-.vscode/
-/.idea/
-/*.iml
+client/.vscode/
+client/.idea/
+client/*.iml
 
 # Temporary or generated files
-*.log
-*.lock
-*.tmp
-*.bak
-*.swp
-*.swo
-*.map
-
-# Others
-*.orig
-*.rej
+client/*.log
+client/*.lock
+client/*.tmp
+client/*.bak
+client/*.swp
+client/*.swo
+client/*.map
 
 # MacOS system files
 .DS_Store
