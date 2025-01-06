@@ -1,0 +1,94 @@
+# Java and Spring Boot
+*.class
+*.log
+*.war
+*.ear
+*.jar
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# IDE files
+/.idea/
+/*.iml
+*.ipr
+*.iws
+
+# Build and dependency directories
+/target/
+/out/
+/build/
+/.mvn/
+/.m2/
+
+# Gradle-specific files
+.gradle/
+/build/
+/!gradle-wrapper.jar
+.gradle/gradle-app.setting
+
+# Logs
+logs/
+*.log
+*.pid
+*.gz
+
+# Spring Boot properties
+/application.properties
+/application.yml
+
+# Spring Boot configuration profiles
+/src/main/resources/config/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Node.js and React
+/node_modules/
+/build/
+/dist/
+/coverage/
+/.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# npm and Yarn lockfiles
+yarn.lock
+package-lock.json
+
+# ESLint and Prettier
+.eslintcache
+.prettierignore
+.prettierrc
+
+# VS Code and other IDE settings
+.vscode/
+/.idea/
+/*.iml
+
+# Temporary or generated files
+*.log
+*.lock
+*.tmp
+*.bak
+*.swp
+*.swo
+*.map
+
+# Others
+*.orig
+*.rej
+
+# MacOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+Desktop.ini
